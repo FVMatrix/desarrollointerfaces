@@ -6,7 +6,8 @@
 package servicios;
 
 import dao.DaoArticulos;
-import model.Objeto;
+import java.util.List;
+import model.Articulo;
 
 /**
  *
@@ -14,8 +15,28 @@ import model.Objeto;
  */
 public class ServiciosArticulos {
 
-    public int añadrirObjeto(Objeto o) {
+    public int añadirArticulo(Articulo art) {
         dao.DaoArticulos da = new DaoArticulos();
-        return da.añadirObjeto(o);
+        return da.añadirArticulo(art);
+    }
+    
+    public List<Articulo> cargarTodosLosArticulos(){
+        dao.DaoArticulos da = new DaoArticulos();
+        return da.cargarTodosLosArticulos();
+    }
+    
+    public int borrarArticulo(Articulo art){
+        dao.DaoArticulos da = new DaoArticulos();
+        return da.borrarArticulo(art);
+    }
+    
+    public Articulo cargarArticuloPorID(Articulo art){
+        dao.DaoArticulos da = new DaoArticulos();
+        return da.cargarArticuloPorID(art);
+    }
+    
+    public int modificarArticulo(Articulo art){
+        dao.DaoArticulos da = new DaoArticulos();
+        return da.modificarArticulo(art);
     }
 }

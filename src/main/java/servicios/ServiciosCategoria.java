@@ -14,9 +14,29 @@ import model.Categoria;
  * @author mykha
  */
 public class ServiciosCategoria {
-
-    public List<Categoria> devuelveTodasCategorias() {
+    
+    public List<Categoria> cargarTodosLasCategorias(){
         dao.DaoCategorias dc = new DaoCategorias();
-        return dc.devuelveTodasCategorias();
+        return dc.cargarTodasLasCategorias();
+    }
+    
+    public int añadirCategoria(Categoria cat){
+        dao.DaoCategorias dc = new DaoCategorias();
+        return dc.añadirCategoria(cat);
+    }
+    
+    public int borrarCategoria(Categoria cat){
+        dao.DaoCategorias dc = new DaoCategorias();
+        return dc.borrarCategoria(cat);
+    }
+    
+    public Categoria cargarCategoriaPorID(int id){
+        dao.DaoCategorias dc = new DaoCategorias();
+        return dc.cargarCategoriaPorID(id);
+    }
+    
+    public int modificarArticulo(Categoria cat){
+        dao.DaoCategorias dc = new DaoCategorias();
+        return dc.modificarCategoria(cat);
     }
 }

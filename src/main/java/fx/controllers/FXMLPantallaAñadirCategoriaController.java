@@ -6,6 +6,7 @@
 package fx.controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,8 +52,9 @@ public class FXMLPantallaAñadirCategoriaController implements Initializable {
         ServiciosCategoria sc = new ServiciosCategoria();
         fxCategoria.getItems().clear();
         fxCategoria2.getItems().clear();
-        fxCategoria.getItems().addAll(sc.devuelveTodasCategorias());
-        fxCategoria2.getItems().addAll(sc.devuelveTodasCategorias());
+        ArrayList<Categoria> categorias = (ArrayList<Categoria>) sc.cargarTodosLasCategorias();
+        fxCategoria.getItems().addAll(categorias);
+        fxCategoria2.getItems().addAll(categorias);
 
     }
 

@@ -9,36 +9,40 @@ package model;
  *
  * @author mykha
  */
-public class Usuario {
+public class Empleado {
 
-    private int id_usuario;
+    private int id_empleado;
     private String dni;
     private String nombre;
     private String apellido;
     private int telefono;
     private String ubicacion;
-    private int tipo_usuario;
+    private int tipo_empleado;
     private String contraseña;
     private String email;
+    
+    public Empleado(){
+        
+    }
 
-    public Usuario(int id_usuario, String dni, String nombre, String apellido, int telefono, String ubicacion, int tipo_usuario, String contraseña, String email) {
-        this.id_usuario = id_usuario;
+    public Empleado(int id_empleado, String dni, String nombre, String apellido, int telefono, String ubicacion, int tipo_usuario, String contraseña, String email) {
+        this.id_empleado = id_empleado;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.ubicacion = ubicacion;
-        this.tipo_usuario = tipo_usuario;
+        this.tipo_empleado = tipo_usuario;
         this.contraseña = contraseña;
         this.email = email;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getId_empleado() {
+        return id_empleado;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setId_empleado(int id_empleado) {
+        this.id_empleado = id_empleado;
     }
 
     public String getDni() {
@@ -81,12 +85,12 @@ public class Usuario {
         this.ubicacion = ubicacion;
     }
 
-    public int getTipo_usuario() {
-        return tipo_usuario;
+    public int getTipo_empleado() {
+        return tipo_empleado;
     }
 
-    public void setTipo_usuario(int tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
+    public void setTipo_empleado(int tipo_empleado) {
+        this.tipo_empleado = tipo_empleado;
     }
 
     public String getContraseña() {
@@ -106,7 +110,7 @@ public class Usuario {
     }
 
     public String toStringConTodo() {
-        return "ID:" + id_usuario + ". DNI: " + dni + ". NOMBRE: " + nombre + ". APELLIDOS: " + apellido + ". TELEFONO" + telefono + ". UBICACIÓN: " + ubicacion + ". TIPO DE USUARIO: " + tipo_usuario;
+        return "ID:" + id_empleado + ". DNI: " + dni + ". NOMBRE: " + nombre + ". APELLIDOS: " + apellido + ". TELEFONO" + telefono + ". UBICACIÓN: " + ubicacion + ". TIPO DE USUARIO: " + tipo_empleado;
     }
 
     @Override

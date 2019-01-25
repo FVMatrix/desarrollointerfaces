@@ -11,9 +11,11 @@ import java.sql.Date;
  *
  * @author mykha
  */
-public class Objeto {
+public class Articulo {
 
-    private int id_objeto;
+    
+    private int id_articulo;
+    private String nombre;
     private int id_categoria;
     private String imagenes;
     private String descripcion;
@@ -22,8 +24,13 @@ public class Objeto {
     private Date fecha_de_alta;
     private int id_fecha_cambios;
 
-    public Objeto(int id_objeto, int id_categoria, String imagenes, String descripcion, String ubicacion, int id_responsable, Date fecha_de_alta) {
-        this.id_objeto = id_objeto;
+    public Articulo(){
+        
+    }
+    
+    public Articulo(int id_objeto, String nombre, int id_categoria, String imagenes, String descripcion, String ubicacion, int id_responsable, Date fecha_de_alta) {
+        this.id_articulo = id_objeto;
+        this.nombre = nombre;
         this.id_categoria = id_categoria;
         this.imagenes = imagenes;
         this.descripcion = descripcion;
@@ -33,8 +40,9 @@ public class Objeto {
     }
 
     
-    public Objeto(int id_objeto, int id_categoria, String imagenes, String descripcion, String ubicacion, int id_responsable, Date fecha_de_alta, int id_fecha_cambios) {
-        this.id_objeto = id_objeto;
+    public Articulo(int id_objeto, String nombre, int id_categoria, String imagenes, String descripcion, String ubicacion, int id_responsable, Date fecha_de_alta, int id_fecha_cambios) {
+        this.id_articulo = id_objeto;
+        this.nombre = nombre;
         this.id_categoria = id_categoria;
         this.imagenes = imagenes;
         this.descripcion = descripcion;
@@ -46,12 +54,20 @@ public class Objeto {
 
     
     
-    public int getId_objeto() {
-        return id_objeto;
+    public int getId_articulo() {
+        return id_articulo;
     }
 
-    public void setId_objeto(int id_objeto) {
-        this.id_objeto = id_objeto;
+    public void setId_articulo(int id_articulo) {
+        this.id_articulo = id_articulo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getId_categoria() {
@@ -102,18 +118,13 @@ public class Objeto {
         this.fecha_de_alta = fecha_de_alta;
     }
 
-    public int getId_fecha_cambios() {
-        return id_fecha_cambios;
-    }
-
-    public void setId_fecha_cambios(int id_fecha_cambios) {
-        this.id_fecha_cambios = id_fecha_cambios;
-    }
 
     @Override
     public String toString() {
-        return "Objeto{" + "id_objeto=" + id_objeto + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + ubicacion + ", id_responsable=" + id_responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
+        return "Articulo{" + "id_articulo=" + id_articulo + ", nombre=" + nombre + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + ubicacion + ", id_responsable=" + id_responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
     }
+
+   
     
     
 }

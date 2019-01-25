@@ -18,8 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.Categoria;
-import model.Objeto;
-import model.Usuario;
+import model.Articulo;
+import model.Empleado;
 import servicios.ServiciosArticulos;
 import servicios.ServiciosCategoria;
 
@@ -50,7 +50,7 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
     @FXML
     public void cargarComboBoxCategoria() {
         servicios.ServiciosCategoria sc = new ServiciosCategoria();
-        List<Categoria> categorias = sc.devuelveTodasCategorias();
+        List<Categoria> categorias = sc.cargarTodosLasCategorias();
 
     }
 
@@ -76,19 +76,18 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
         alert.setTitle(null);
         alert.setHeaderText(null);
         if (!fxNombre.getText().equals("") && fxComboBoxCategoria.getSelectionModel().getSelectedItem() != null && !fxTextAreaDescripcion.getText().equals("")) {
-            Usuario u = null;
+            Empleado u = null;
             String ubicacion = null;
             if (fxComboBoxResponsable.getSelectionModel().getSelectedItem() != null) {
-                u = (Usuario) fxComboBoxResponsable.getSelectionModel().getSelectedItem();
+                u = (Empleado) fxComboBoxResponsable.getSelectionModel().getSelectedItem();
             }
             if (fxComboBoxUbicacion.getSelectionModel().getSelectedItem() != null) {
                 ubicacion = fxComboBoxUbicacion.getSelectionModel().getSelectedItem().toString();
             }
 
             Categoria cat = (Categoria) fxComboBoxCategoria.getSelectionModel().getSelectedItem();
-            LocalDate fecha = LocalDate.now();
-            Objeto o = new Objeto(0, cat.getIdCategoria(), "imagenes", fxTextAreaDescripcion.getText(), ubicacion, u.getId_usuario(), Date.valueOf(fecha));
-            int num = sa.añadrirObjeto(o);
+            Articulo o = new Articulo(0, fxNombre.getText(),cat.getIdCategoria(), "imagenes", fxTextAreaDescripcion.getText(), ubicacion, u.getId_empleado(), Date.valueOf(LocalDate.now()));
+            int num = sa.añadirArticulo(o);
             if (num > 0) {
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Se ha añadido correctamente");
