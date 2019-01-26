@@ -51,7 +51,10 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+        return "Categoria" + nombre + " descripcion: " + descripcion;
     }
 
+    public String toStringConTodo() {
+        return "Categoria{" + "idCategoria=" + idCategoria + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+    }
 }

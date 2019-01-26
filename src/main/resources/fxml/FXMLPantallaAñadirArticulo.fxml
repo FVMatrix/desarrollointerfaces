@@ -21,7 +21,7 @@
       <Label layoutX="390.0" layoutY="284.0" text="Responsable del artículo" />
       <Label layoutX="83.0" layoutY="410.0" text="Agregar imágenes" />
       <Label layoutX="429.0" layoutY="410.0" text="Descripción*" textFill="#e80404" />
-      <Button layoutX="390.0" layoutY="522.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="121.0" text="AÑADIR" />
+      <Button layoutX="390.0" layoutY="522.0" mnemonicParsing="false" onAction="#añadirArticulo" prefHeight="53.0" prefWidth="121.0" text="AÑADIR" />
       <Button layoutX="285.0" layoutY="405.0" mnemonicParsing="false" text="Browse" textFill="#4571d1" />
       <TextField fx:id="fxNombre" layoutX="165.0" layoutY="163.0" />
       <ComboBox fx:id="fxComboBoxCategoria" layoutX="572.0" layoutY="163.0" prefHeight="31.0" prefWidth="187.0" />

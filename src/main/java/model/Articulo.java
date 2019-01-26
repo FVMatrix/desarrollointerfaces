@@ -13,7 +13,6 @@ import java.sql.Date;
  */
 public class Articulo {
 
-    
     private int id_articulo;
     private String nombre;
     private int id_categoria;
@@ -24,10 +23,10 @@ public class Articulo {
     private Date fecha_de_alta;
     private int id_fecha_cambios;
 
-    public Articulo(){
-        
+    public Articulo() {
+
     }
-    
+
     public Articulo(int id_objeto, String nombre, int id_categoria, String imagenes, String descripcion, String ubicacion, int id_responsable, Date fecha_de_alta) {
         this.id_articulo = id_objeto;
         this.nombre = nombre;
@@ -39,7 +38,6 @@ public class Articulo {
         this.fecha_de_alta = fecha_de_alta;
     }
 
-    
     public Articulo(int id_objeto, String nombre, int id_categoria, String imagenes, String descripcion, String ubicacion, int id_responsable, Date fecha_de_alta, int id_fecha_cambios) {
         this.id_articulo = id_objeto;
         this.nombre = nombre;
@@ -52,8 +50,6 @@ public class Articulo {
         this.id_fecha_cambios = id_fecha_cambios;
     }
 
-    
-    
     public int getId_articulo() {
         return id_articulo;
     }
@@ -118,13 +114,13 @@ public class Articulo {
         this.fecha_de_alta = fecha_de_alta;
     }
 
-
-    @Override
-    public String toString() {
+    public String toStringConTodo() {
         return "Articulo{" + "id_articulo=" + id_articulo + ", nombre=" + nombre + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + ubicacion + ", id_responsable=" + id_responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
     }
 
-   
-    
-    
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

@@ -22,6 +22,7 @@ import model.Articulo;
 import model.Empleado;
 import servicios.ServiciosArticulos;
 import servicios.ServiciosCategoria;
+import servicios.ServiciosEmpleado;
 
 /**
  * FXML Controller class
@@ -51,6 +52,7 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
     public void cargarComboBoxCategoria() {
         servicios.ServiciosCategoria sc = new ServiciosCategoria();
         List<Categoria> categorias = sc.cargarTodosLasCategorias();
+        fxComboBoxCategoria.getItems().addAll(categorias);
 
     }
 
@@ -66,7 +68,9 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
 
     @FXML
     public void cargarComboBoxResponsable() {
-
+//        ServiciosEmpleado se = new ServiciosEmpleado();
+//        se.cargarTodosLosEmpleados();
+//        
     }
 
     @FXML
@@ -78,22 +82,26 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
         if (!fxNombre.getText().equals("") && fxComboBoxCategoria.getSelectionModel().getSelectedItem() != null && !fxTextAreaDescripcion.getText().equals("")) {
             Empleado u = null;
             String ubicacion = null;
+            int idEmpleado = 0;
             if (fxComboBoxResponsable.getSelectionModel().getSelectedItem() != null) {
                 u = (Empleado) fxComboBoxResponsable.getSelectionModel().getSelectedItem();
+                idEmpleado = u.getId_empleado();
             }
             if (fxComboBoxUbicacion.getSelectionModel().getSelectedItem() != null) {
                 ubicacion = fxComboBoxUbicacion.getSelectionModel().getSelectedItem().toString();
             }
 
             Categoria cat = (Categoria) fxComboBoxCategoria.getSelectionModel().getSelectedItem();
-            Articulo o = new Articulo(0, fxNombre.getText(),cat.getIdCategoria(), "imagenes", fxTextAreaDescripcion.getText(), ubicacion, u.getId_empleado(), Date.valueOf(LocalDate.now()));
+            Articulo o = new Articulo(0, fxNombre.getText(), cat.getIdCategoria(), "imagenes", fxTextAreaDescripcion.getText(), ubicacion, idEmpleado, Date.valueOf(LocalDate.now()));
             int num = sa.añadirArticulo(o);
             if (num > 0) {
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Se ha añadido correctamente");
                 alert.showAndWait();
             } else {
-
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText("No se ha podido añadir");
+                alert.showAndWait();
             }
 
         } else {

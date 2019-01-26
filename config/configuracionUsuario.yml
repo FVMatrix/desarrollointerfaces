@@ -1,0 +1,10 @@
+## YAML Template.
+---
+
+driverDBmySql: com.mysql.cj.jdbc.Driver
+urlDBmySql: jdbc:mysql://127.0.0.1:3306/fvmatrixbd?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+#jdbc:mysql://dam2.mysql.iesquevedo.es:3335/fvmatrixbd?useSSL=false&allowPublicKeyRetrieval=true
+userDBmySql: root
+passDBmySql: root
+
+dbms: mySql

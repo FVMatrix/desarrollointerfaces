@@ -76,7 +76,6 @@ public class DBConnectionPool {
    
 
     public void cerrarConexion(Connection connection) {
-
         try {
           
             if (connection != null) {

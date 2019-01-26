@@ -13,9 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Categoria;
 import servicios.ServiciosCategoria;
 
@@ -58,7 +60,21 @@ public class FXMLPantallaAñadirCategoriaController implements Initializable {
 
     }
 
-    public void AñadirCategoria() {
+    public void cargarTablaBorrar() {
+
+        TableColumn nombre = new TableColumn("Nombre");
+        TableColumn descripcion = new TableColumn("Descripcion");
+        nombre.setPrefWidth(210);
+        descripcion.setPrefWidth(210);
+
+        fxTablaBorrar.getColumns().addAll(nombre, descripcion);
+        nombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        descripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        Categoria c = (Categoria) fxCategoria2.getSelectionModel().getSelectedItem();
+        fxTablaBorrar.getItems().add(c);
+    }
+
+    public void añadirCategoria() {
 
         if (fxNombre.getText().equals("") || fxDescripcion.getText().equals("")) {
             alertError.setContentText("Introduzca todos los datos");
@@ -98,11 +114,10 @@ public class FXMLPantallaAñadirCategoriaController implements Initializable {
 //                alertError.setContentText("Ha ocurrido un error");
 //                alertError.showAndWait();
 //            }
-
         }
     }
-    
-    public void BorrarCategoria() {
+
+    public void borrarCategoria() {
         //PREGUNTAR pa que coño es el segundo combobox que no lo enchiendo pinche furro 
 
 //        if (fxNombre.getText().equals("") || fxDescripcion.getText().equals("")) {
