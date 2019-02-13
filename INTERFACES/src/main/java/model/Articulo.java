@@ -18,8 +18,8 @@ public class Articulo {
     private int id_categoria;
     private String imagenes;
     private String descripcion;
-    private int idUbicacion;
-    private int id_responsable;
+    private int ubicacion;
+    private int responsable;
     private Date fecha_de_alta;
     private int id_fecha_cambios;
 
@@ -27,29 +27,28 @@ public class Articulo {
 
     }
 
-    public Articulo(int id_objeto, String nombre, String imagenes, String descripcion, int ubicacion, Date fecha_de_alta, int id_responsable, int id_categoria) {
+    public Articulo(int id_objeto, String nombre, String imagenes, String descripcion, int ubicacion, Date fecha_de_alta, int responsable, int id_categoria) {
         this.id_articulo = id_objeto;
         this.nombre = nombre;
         this.id_categoria = id_categoria;
         this.imagenes = imagenes;
         this.descripcion = descripcion;
-        this.idUbicacion = ubicacion;
-        this.id_responsable = id_responsable;
+        this.ubicacion = ubicacion;
+        this.responsable = responsable;
         this.fecha_de_alta = fecha_de_alta;
     }
 
-    public Articulo(int id_objeto, String nombre, int id_categoria, String imagenes, String descripcion, int ubicacion, int id_responsable, Date fecha_de_alta, int id_fecha_cambios) {
-        this.id_articulo = id_objeto;
-        this.nombre = nombre;
-        this.id_categoria = id_categoria;
-        this.imagenes = imagenes;
-        this.descripcion = descripcion;
-        this.idUbicacion = ubicacion;
-        this.id_responsable = id_responsable;
-        this.fecha_de_alta = fecha_de_alta;
-        this.id_fecha_cambios = id_fecha_cambios;
-    }
-
+//    public Articulo(int id_objeto, String nombre, int id_categoria, String imagenes, String descripcion, int ubicacion, int responsable, Date fecha_de_alta, int id_fecha_cambios) {
+//        this.id_articulo = id_objeto;
+//        this.nombre = nombre;
+//        this.id_categoria = id_categoria;
+//        this.imagenes = imagenes;
+//        this.descripcion = descripcion;
+//        this.idUbicacion = ubicacion;
+//        this.responsable = responsable;
+//        this.fecha_de_alta = fecha_de_alta;
+//        this.id_fecha_cambios = id_fecha_cambios;
+//    }
     public int getId_articulo() {
         return id_articulo;
     }
@@ -91,19 +90,19 @@ public class Articulo {
     }
 
     public int getUbicacion() {
-        return idUbicacion;
+        return ubicacion;
     }
 
     public void setUbicacion(int ubicacion) {
-        this.idUbicacion = ubicacion;
+        this.ubicacion = ubicacion;
     }
 
     public int getId_responsable() {
-        return id_responsable;
+        return responsable;
     }
 
-    public void setId_responsable(int id_responsable) {
-        this.id_responsable = id_responsable;
+    public void setId_responsable(int responsable) {
+        this.responsable = responsable;
     }
 
     public Date getFecha_de_alta() {
@@ -115,7 +114,7 @@ public class Articulo {
     }
 
     public String toStringConTodo() {
-        return "Articulo{" + "id_articulo=" + id_articulo + ", nombre=" + nombre + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + idUbicacion + ", id_responsable=" + id_responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
+        return "Articulo{" + "id_articulo=" + id_articulo + ", nombre=" + nombre + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + ubicacion + ", responsable=" + responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
     }
 
     @Override
