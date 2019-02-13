@@ -28,7 +28,7 @@ import servicios.ServiciosUbicacion;
  */
 public class FXMLPantallaGestionarUbicacionController implements Initializable {
 
-     @FXML
+    @FXML
     private TextField fxNombre;
     @FXML
     private TextArea fxDescripcion;
@@ -49,13 +49,14 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
     public void setInicio(FXMLPantallaPrincipalController inicio) {
         this.inicio = inicio;
     }
-    
+
     public void limpiarTabla() {
         fxTablaBorrar.getColumns().clear();
         fxTablaBorrar.getItems().clear();
     }
-     public void cargar() {
-         ServiciosUbicacion sc = new ServiciosUbicacion();
+
+    public void cargar() {
+        ServiciosUbicacion sc = new ServiciosUbicacion();
         fxUbicacionActualizar.getItems().clear();
         fxUbicacionBorrar.getItems().clear();
         fxNombreNuevo.clear();
@@ -67,16 +68,16 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
         fxUbicacionBorrar.getItems().addAll(ubicaciones);
 
     }
-    
-     public void cargarActualizar() {
+
+    public void cargarActualizar() {
         Ubicacion pulsada = (Ubicacion) fxUbicacionActualizar.getSelectionModel().getSelectedItem();
         if (pulsada != null) {
             fxNombreNuevo.setText(pulsada.getNombre_ubicacion());
             fxDescripcionNuevo.setText(pulsada.getDescripcion());
         }
     }
-     
-      public void cargarTablaBorrar() {
+
+    public void cargarTablaBorrar() {
         fxTablaBorrar.getItems().clear();
 
         TableColumn nombre = new TableColumn("Nombre");
@@ -90,8 +91,8 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
         Ubicacion u = (Ubicacion) fxUbicacionBorrar.getSelectionModel().getSelectedItem();
         fxTablaBorrar.getItems().add(u);
     }
-      
-       public void añadirUbicacion() {
+
+    public void añadirUbicacion() {
 
         if (fxNombre.getText().equals("") || fxDescripcion.getText().equals("")) {
             alertError.setContentText("Introduzca todos los datos");
@@ -105,7 +106,7 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
                 a.showAndWait();
                 fxNombre.clear();
                 fxDescripcion.clear();
-                
+
                 fxTablaBorrar.getItems().clear();
                 fxUbicacionActualizar.getItems().add(c);
                 fxUbicacionBorrar.getItems().add(c);
@@ -117,9 +118,9 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
 
         }
     }
-       
-        public void actualizarUbicacion() {
-       ServiciosUbicacion sc = new ServiciosUbicacion();
+
+    public void actualizarUbicacion() {
+        ServiciosUbicacion sc = new ServiciosUbicacion();
         if (fxNombreNuevo.getText().equals("") || fxDescripcionNuevo.getText().equals("")) {
             alertError.setContentText("Introduzca todos los datos");
             alertError.showAndWait();
@@ -145,9 +146,8 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
             }
         }
     }
-        
-        public void borrarUbicacion() {
 
+    public void borrarUbicacion() {
         ServiciosUbicacion sc = new ServiciosUbicacion();
         if (fxUbicacionBorrar.getSelectionModel().getSelectedItem() == null) {
             alertError.setContentText("Seleccione una categoria");
@@ -174,12 +174,10 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
             }
         }
     }
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+       alertError = new Alert(Alert.AlertType.ERROR);
+    }
+
 }
