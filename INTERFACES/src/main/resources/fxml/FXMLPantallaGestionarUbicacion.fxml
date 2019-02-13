@@ -7,24 +7,29 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="fx.controllers.FXMLPantallaGestionarUbicacionController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controllers.FXMLPantallaGestionarUbicacionController">
      <children>
-      <Label layoutX="357.0" layoutY="121.0" text="DESCRIPCION" />
-      <ComboBox fx:id="fxUbicacionBorrar" layoutX="61.0" layoutY="452.0" onAction="#cargarTablaBorrar" prefHeight="31.0" prefWidth="196.0" promptText="Seleccione Ubicación" />
-      <ComboBox fx:id="fxUbicacionActualizar" layoutX="21.0" layoutY="266.0" onAction="#cargarActualizar" prefHeight="31.0" prefWidth="196.0" promptText="Seleccione Ubicación" />
-      <Button layoutX="776.0" layoutY="117.0" mnemonicParsing="false" onAction="#añadirUbicacion" text="AÑADIR" />
-      <Button layoutX="763.0" layoutY="282.0" mnemonicParsing="false" onAction="#actualizarUbicacion" text="ACTUALIZAR" />
-      <Button layoutX="775.0" layoutY="471.0" mnemonicParsing="false" onAction="#borrarUbicacion" text="BORRAR" />
-      <Label layoutX="80.0" layoutY="119.0" text="NOMBRE" />
-      <TextField fx:id="fxNombre" layoutX="159.0" layoutY="115.0" />
-      <TextArea fx:id="fxDescripcion" layoutX="471.0" layoutY="82.0" prefHeight="96.0" prefWidth="253.0" />
-      <TextField fx:id="fxNombreNuevo" layoutX="257.0" layoutY="269.0" promptText="Nombre" />
-      <TextArea fx:id="fxDescripcionNuevo" layoutX="471.0" layoutY="237.0" prefHeight="96.0" prefWidth="253.0" promptText="Descripción" />
-      <TableView fx:id="fxTablaBorrar" layoutX="303.0" layoutY="417.0" prefHeight="153.0" prefWidth="421.0" />
+      <Label layoutX="325.0" layoutY="122.0" text="DESCRIPCION" />
+      <ComboBox fx:id="fxUbicacionBorrar" layoutX="44.0" layoutY="499.0" onAction="#cargarTablaBorrar" prefHeight="31.0" prefWidth="196.0" promptText="Seleccione Ubicación" />
+      <ComboBox fx:id="fxUbicacionActualizar" layoutX="44.0" layoutY="269.0" onAction="#cargarActualizar" prefHeight="31.0" prefWidth="196.0" promptText="Seleccione Ubicación" />
+      <Button layoutX="744.0" layoutY="115.0" mnemonicParsing="false" onAction="#añadirUbicacion" text="AÑADIR" />
+      <Button layoutX="729.0" layoutY="269.0" mnemonicParsing="false" onAction="#actualizarUbicacion" text="ACTUALIZAR" />
+      <Button layoutX="743.0" layoutY="506.0" mnemonicParsing="false" onAction="#borrarUbicacion" text="BORRAR" />
+      <Label layoutX="44.0" layoutY="120.0" text="NOMBRE" />
+      <TextField fx:id="fxNombre" layoutX="121.0" layoutY="117.0" />
+      <TextArea fx:id="fxDescripcion" layoutX="466.0" layoutY="77.0" prefHeight="107.0" prefWidth="242.0" />
+      <TextField fx:id="fxNombreNuevo" layoutX="263.0" layoutY="269.0" promptText="Nombre" />
+      <TextArea fx:id="fxDescripcionNuevo" layoutX="464.0" layoutY="231.0" prefHeight="107.0" prefWidth="242.0" promptText="Descripción" />
+      <TableView fx:id="fxTablaBorrar" layoutX="308.0" layoutY="438.0" prefHeight="153.0" prefWidth="400.0" />
       <Label layoutX="298.0" layoutY="37.0" text="Gestionar Ubicaciones">
-        
-      </Label>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Line endX="655.5" layoutX="245.0" layoutY="199.0" startX="-245.0" />
+      <Line endX="632.0" layoutX="268.0" layoutY="391.0" startX="-268.0" />
       
    </children>
 </AnchorPane>

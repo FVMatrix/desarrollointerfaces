@@ -8,12 +8,12 @@
 
 <AnchorPane id="AnchorPane" fx:id="pantallaBienvenida" prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controllers.FXMLPantallaBienvenidaController">
    <children>
-      <Label fx:id="fxBienvenida" alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="42.0" prefHeight="53.0" prefWidth="752.0" text="BIENVENIDO A MATRIX AGENTE" textAlignment="CENTER">
+      <Label fx:id="fxBienvenida" alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="45.0" prefHeight="53.0" prefWidth="777.0" text="BIENVENIDO A MATRIX AGENTE" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="496.0" fitWidth="752.0" layoutX="74.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="412.0" fitWidth="697.0" layoutX="102.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/90s-cabecera_pastillas.jpg" />
          </image>

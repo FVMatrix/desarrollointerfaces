@@ -26,10 +26,10 @@
       <PasswordField fx:id="fxContraseña" layoutX="185.0" layoutY="363.0" />
       <PasswordField fx:id="fxContraseña2" layoutX="571.0" layoutY="363.0" />
       <TextField fx:id="fxEmail" layoutX="185.0" layoutY="444.0" />
-      <Button layoutX="408.0" layoutY="514.0" mnemonicParsing="false" onAction="#añadirEmpleado" prefHeight="58.0" prefWidth="146.0" text="AÑADIR" />
+      <Button layoutX="377.0" layoutY="519.0" mnemonicParsing="false" onAction="#añadirEmpleado" prefHeight="58.0" prefWidth="146.0" text="AÑADIR" />
       <Label layoutX="304.0" layoutY="38.0" text="Añadir un nuevo empleado">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <ComboBox fx:id="fxComboBoxTipoEmpleado" layoutX="571.0" layoutY="431.0" prefHeight="31.0" prefWidth="187.0" />

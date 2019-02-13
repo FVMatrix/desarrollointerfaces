@@ -180,8 +180,12 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
             if (selectedFile.getAbsolutePath().contains(fileChooser.getInitialDirectory().toString())) {
                 //Añadir el nombre de la imagen al Articulo
                 //Crear Lista de String e ir añadiendo nombre de las imagenes a la lista separados por ";"
+                if (getNombreDeImagen() == null) {
+                    setNombreDeImagen(selectedFile.getName());
+                } else {
+                    setNombreDeImagen(getNombreDeImagen() + ";" + selectedFile.getName());
+                }
 
-                setNombreDeImagen(getNombreDeImagen() + ";" + selectedFile.getName());
             } else {
                 alert.setAlertType(AlertType.ERROR);
                 alert.setContentText("Las imagenes tienen que estar solo en la carpeta que se le abrirá a continuación. Copie su imagen a esa carpeta o seleccione una que ya está");

@@ -5,6 +5,7 @@
  */
 package fx.controllers;
 
+import java.io.File;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import model.Articulo;
 import model.Categoria;
 import model.Empleado;
@@ -30,18 +32,19 @@ import servicios.ServiciosUbicacion;
  * @author mykha
  */
 public class FXMLPantallaActualizarArticuloController implements Initializable {
-
+    
     private FXMLPantallaPrincipalController inicio;
-
+    
     public void setInicio(FXMLPantallaPrincipalController inicio) {
         this.inicio = inicio;
     }
     private List<Categoria> cat;
     private List<Empleado> empl;
     private List<Ubicacion> ubicaciones;
+    private String nombreDeImagen;
     @FXML
     private ComboBox fxComboBoxArticulo;
-
+    
     @FXML
     private TextField fxNombre;
     @FXML
@@ -53,16 +56,14 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
     @FXML
     private TextArea fxDescripcion;
     private Alert alertError;
-
+    
     public void cargarComboArticulos() {
         fxComboBoxArticulo.getItems().clear();
         ServiciosArticulos sa = new ServiciosArticulos();
         List<Articulo> art = sa.cargarTodosLosArticulos();
         fxComboBoxArticulo.getItems().addAll(art);
     }
-
-    //  Articulo a = new Articulo();
-//        fxComboBoxUbicacion.getSelectionModel().select(a);
+    
     public void cargarCampos() {
         Articulo a = (Articulo) fxComboBoxArticulo.getSelectionModel().getSelectedItem();
         fxNombre.setText(a.getNombre());
@@ -71,7 +72,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         fxComboBoxCategoria.getSelectionModel().select(devuelveCategoriaDelArticuloSeleccionado(a));
         fxComboBoxResponsable.getSelectionModel().select(devuelveEmpleadoDelArticuloSeleccionado(a));
     }
-
+    
     public Categoria devuelveCategoriaDelArticuloSeleccionado(Articulo a) {
         Categoria cats = null;
         boolean salir = false;
@@ -83,7 +84,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         }
         return cats;
     }
-
+    
     public Ubicacion devuelveUbicacionDelArticuloSeleccionado(Articulo a) {
         Ubicacion ub = null;
         boolean salir = false;
@@ -95,7 +96,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         }
         return ub;
     }
-
+    
     public Empleado devuelveEmpleadoDelArticuloSeleccionado(Articulo a) {
         Empleado em = null;
         boolean salir = false;
@@ -107,7 +108,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         }
         return em;
     }
-
+    
     public void cargarComboCategoria() {
         cat = new LinkedList<>();
         fxComboBoxCategoria.getItems().clear();
@@ -115,7 +116,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         cat.addAll(sc.cargarTodosLasCategorias());
         fxComboBoxCategoria.getItems().addAll(cat);
     }
-
+    
     public void cargarComboResponsable() {
         empl = new LinkedList<>();
         fxComboBoxResponsable.getItems().clear();
@@ -123,7 +124,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         empl.addAll(se.cargarTodosLosEmpleados());
         fxComboBoxResponsable.getItems().addAll(empl);
     }
-
+    
     public void cargarComboUbicacion() {
         ubicaciones = new LinkedList<>();
         fxComboBoxUbicacion.getItems().clear();
@@ -131,12 +132,12 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         ubicaciones.addAll(su.cargarTodasLasUbicaciones());
         fxComboBoxUbicacion.getItems().addAll(ubicaciones);
     }
-
+    
     public void limpiarCampos() {
         fxNombre.clear();
         fxDescripcion.clear();
     }
-
+    
     @FXML
     public void actualizarArticulo() {
         ServiciosArticulos sa = new ServiciosArticulos();
@@ -149,6 +150,14 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
                 a.setId_categoria(((Categoria) fxComboBoxCategoria.getSelectionModel().getSelectedItem()).getId_categoria());
                 a.setId_responsable(((Empleado) fxComboBoxResponsable.getSelectionModel().getSelectedItem()).getId_empleado());
                 a.setUbicacion(((Ubicacion) fxComboBoxUbicacion.getSelectionModel().getSelectedItem()).getIdubicaciones());
+                if (getNombreDeImagen() != null) {
+                    if (a.getImagenes() == null) {
+                        a.setImagenes(getNombreDeImagen());
+                    } else {
+                        String imagenesActualesDelArticulo = a.getImagenes();
+                        a.setImagenes(imagenesActualesDelArticulo + ";" + getNombreDeImagen());
+                    }                    
+                }
                 int num = sa.modificarArticulo(a);
                 if (num > 0) {
                     alertError.setAlertType(Alert.AlertType.INFORMATION);
@@ -162,16 +171,56 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
                 alertError.setContentText("Rellene todos los campos");
                 alertError.showAndWait();
             }
-
+            
         } else {
             alertError.setContentText("Debe seleccionar un articulo");
             alertError.showAndWait();
         }
     }
-
+    
+    @FXML
+    public void añadirImagenes() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Seleccion de Imagenes");
+        alert.setHeaderText(null);
+        alert.setContentText("Las imagenes tienen que estar solo en la carpeta que se le abrirá a continuación. Copie su imagen a esa carpeta o seleccione una que ya está");
+        alert.showAndWait();
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = new File(this.getClass().getResource("/images").getFile());
+        fileChooser.setInitialDirectory(file);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image file", "*.png", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            if (selectedFile.getAbsolutePath().contains(fileChooser.getInitialDirectory().toString())) {
+                if (getNombreDeImagen() == null) {
+                    setNombreDeImagen(selectedFile.getName());
+                } else {
+                    setNombreDeImagen(getNombreDeImagen() + ";" + selectedFile.getName());
+                }
+                
+            } else {
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText("Las imagenes tienen que estar solo en la carpeta que se le abrirá a continuación. Copie su imagen a esa carpeta o seleccione una que ya está");
+                alert.showAndWait();
+            }
+            
+        }
+    }
+    
+    public String getNombreDeImagen() {
+        return nombreDeImagen;
+    }
+    
+    public void setNombreDeImagen(String nombreDeImagen) {
+        this.nombreDeImagen = nombreDeImagen;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         alertError = new Alert(Alert.AlertType.ERROR);
     }
-
+    
 }

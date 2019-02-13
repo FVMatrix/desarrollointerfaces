@@ -81,8 +81,8 @@ public class FXMLPantallaGestionarUbicacionController implements Initializable {
 
         TableColumn nombre = new TableColumn("Nombre");
         TableColumn descripcion = new TableColumn("Descripcion");
-        nombre.setPrefWidth(210);
-        descripcion.setPrefWidth(210);
+        nombre.setPrefWidth(200);
+        descripcion.setPrefWidth(200);
 
         fxTablaBorrar.getColumns().addAll(nombre, descripcion);
         nombre.setCellValueFactory(new PropertyValueFactory("nombre_ubicacion"));

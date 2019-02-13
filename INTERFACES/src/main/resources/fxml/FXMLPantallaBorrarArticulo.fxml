@@ -9,13 +9,16 @@
 
 <AnchorPane id="AnchorPane" fx:id="pantallaBorrarArticulo" prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controllers.FXMLPantallaBorrarArticuloController">
      <children>
-      <Label layoutX="370.0" layoutY="71.0" text="Borrar artículos">
+      <Label layoutX="370.0" layoutY="71.0" prefHeight="35.0" prefWidth="183.0" text="Borrar artículos">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="131.0" layoutY="184.0" text="Seleccione el artículo que desea borrar" />
-      <ComboBox fx:id="fxComboBox" layoutX="421.0" layoutY="179.0" onAction="#cargarTabla" prefHeight="31.0" prefWidth="198.0" />
+      <Label layoutX="108.0" layoutY="195.0" text="Seleccione el artículo que desea borrar">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <ComboBox fx:id="fxComboBox" layoutX="513.0" layoutY="193.0" onAction="#cargarTabla" prefHeight="31.0" prefWidth="241.0" />
       <TableView fx:id="fxTableView" layoutX="101.0" layoutY="271.0" prefHeight="198.0" prefWidth="700.0" />
       <Button layoutX="364.0" layoutY="533.0" mnemonicParsing="false" onAction="#borrarArticulo" prefHeight="59.0" prefWidth="174.0" text="BORRAR" />
    </children>

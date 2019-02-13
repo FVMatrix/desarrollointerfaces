@@ -5,16 +5,11 @@
  */
 package fx.controllers;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,9 +32,9 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         this.inicio = inicio;
     }
     private String imagenesDeArticulo;
-    private String imagenesDeprueba;
     private String imagenActual;
     private String[] imagenesSeparadas;
+    private Articulo articuloSeleccionadoEnelCombo;
 
     @FXML
     private ComboBox fxComboBox;
@@ -47,11 +42,25 @@ public class FXMLPantallaVerArticulosController implements Initializable {
     private TableView fxTableView;
     @FXML
     private ImageView fxImageView;
+    @FXML
+    private Button fxBotonSiguiente;
+    @FXML
+    private Button fxBotonAnterior;
 
     public void cargarComboBox() {
         servicios.ServiciosArticulos sa = new ServiciosArticulos();
         fxComboBox.getItems().clear();
         fxComboBox.getItems().addAll(sa.cargarTodosLosArticulos());
+        fxComboBox.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void cargarDatos() {
+        //Este metodo controla el problema de cuando se deja seleccionado algo en el combobox, se va a otra pantalla y se vuelve. el combo se recarga y eso llama una
+        //accion y ejecuta el cargar tabla y la image view, y como la seleccion es nula, provoca un nullPointer.
+        if (fxComboBox.getSelectionModel().getSelectedItem() != null) {
+            cargarTabla();
+        }
     }
 
     @FXML
@@ -64,11 +73,11 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         TableColumn responsable = new TableColumn("Responsable");
         TableColumn ubicacion = new TableColumn("Ubicación");
         TableColumn descipcion = new TableColumn("Descripción");
-        nombre.setPrefWidth(140);
-        categoria.setPrefWidth(140);
-        responsable.setPrefWidth(140);
-        ubicacion.setPrefWidth(140);
-        descipcion.setPrefWidth(140);
+        nombre.setPrefWidth(139);
+        categoria.setPrefWidth(139);
+        responsable.setPrefWidth(139);
+        ubicacion.setPrefWidth(139);
+        descipcion.setPrefWidth(139);
         fxTableView.getColumns().addAll(nombre, categoria, responsable, ubicacion, descipcion);
         nombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         categoria.setCellValueFactory(new PropertyValueFactory("id_categoria"));
@@ -79,14 +88,31 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         cargarImageView(a);
     }
 
-    public void cargarImageView(Articulo a) {
+    public void habiliatarBotonesDeLasImagenes() {
+        fxBotonAnterior.setVisible(true);
+        fxBotonSiguiente.setVisible(true);
+    }
 
-        imagenesDeArticulo = a.getImagenes();
-        imagenesDeprueba = "monitorAcer.jpg;monitorAcerPredator.jpg;monitorSamsung.png;";
-        imagenesSeparadas = imagenesDeprueba.split(";");
-        Image image = new Image(this.getClass().getResource("/images/" + imagenesSeparadas[0]).toString());
-        setImagenActual(imagenesSeparadas[0]);
-        fxImageView.setImage((image));
+    public void deshabiliatarBotonesDeLasImagenes() {
+        fxBotonAnterior.setVisible(false);
+        fxBotonSiguiente.setVisible(false);
+    }
+
+    public void cargarImageView(Articulo a) {
+        if (null == a.getImagenes()) {
+            deshabiliatarBotonesDeLasImagenes();
+            Image image = new Image(this.getClass().getResource("/images/nohay.jpg").toString());
+            fxImageView.setImage((image));
+        } else {
+            imagenesDeArticulo = a.getImagenes();
+            imagenesSeparadas = imagenesDeArticulo.split(";");
+            Image image = new Image(this.getClass().getResource("/images/" + imagenesSeparadas[0]).toString());
+            setImagenActual(imagenesSeparadas[0]);
+            fxImageView.setImage((image));
+            habiliatarBotonesDeLasImagenes();
+            //ACTUALIZAR IMAGENES
+        }
+
     }
 
     public int devuelvemeLaPosicionDeLaImagenActual() {
@@ -156,14 +182,6 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         this.imagenesDeArticulo = imagenesDeArticulo;
     }
 
-    public String getImagenesDeprueba() {
-        return imagenesDeprueba;
-    }
-
-    public void setImagenesDeprueba(String imagenesDeprueba) {
-        this.imagenesDeprueba = imagenesDeprueba;
-    }
-
     public String getImagenActual() {
         return imagenActual;
     }
@@ -172,12 +190,20 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         this.imagenActual = imagenActual;
     }
 
+    public Articulo getArticuloSeleccionadoEnelCombo() {
+        return articuloSeleccionadoEnelCombo;
+    }
+
+    public void setArticuloSeleccionadoEnelCombo(Articulo articuloSeleccionadoEnelCombo) {
+        this.articuloSeleccionadoEnelCombo = articuloSeleccionadoEnelCombo;
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        deshabiliatarBotonesDeLasImagenes();
     }
 
 }
