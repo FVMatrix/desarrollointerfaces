@@ -5,22 +5,12 @@
  */
 package fx.controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -28,11 +18,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import model.Categoria;
 import model.Articulo;
 import model.Empleado;
@@ -106,7 +93,7 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
             }
 
             Categoria cat = (Categoria) fxComboBoxCategoria.getSelectionModel().getSelectedItem();
-            Articulo o = new Articulo(0, fxNombre.getText(), "imagenes", fxTextAreaDescripcion.getText(), ((Ubicacion) fxComboBoxUbicacion.getSelectionModel().getSelectedItem()).getIdubicaciones(), Date.valueOf(LocalDate.now()), idEmpleado, cat.getId_categoria());
+            Articulo o = new Articulo(0, fxNombre.getText(), getNombreDeImagen(), fxTextAreaDescripcion.getText(), ((Ubicacion) fxComboBoxUbicacion.getSelectionModel().getSelectedItem()).getIdubicaciones(), Date.valueOf(LocalDate.now()), idEmpleado, cat.getId_categoria());
             int num = sa.añadirArticulo(o);
             if (num > 0) {
                 alert.setAlertType(Alert.AlertType.INFORMATION);
@@ -193,7 +180,8 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
             if (selectedFile.getAbsolutePath().contains(fileChooser.getInitialDirectory().toString())) {
                 //Añadir el nombre de la imagen al Articulo
                 //Crear Lista de String e ir añadiendo nombre de las imagenes a la lista separados por ";"
-                selectedFile.getName();
+
+                setNombreDeImagen(getNombreDeImagen() + ";" + selectedFile.getName());
             } else {
                 alert.setAlertType(AlertType.ERROR);
                 alert.setContentText("Las imagenes tienen que estar solo en la carpeta que se le abrirá a continuación. Copie su imagen a esa carpeta o seleccione una que ya está");
@@ -201,6 +189,14 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
             }
 
         }
+    }
+
+    public String getNombreDeImagen() {
+        return nombreDeImagen;
+    }
+
+    public void setNombreDeImagen(String nombreDeImagen) {
+        this.nombreDeImagen = nombreDeImagen;
     }
 
     @Override
