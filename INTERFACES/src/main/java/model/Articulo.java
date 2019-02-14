@@ -97,11 +97,11 @@ public class Articulo {
         this.ubicacion = ubicacion;
     }
 
-    public int getId_responsable() {
+    public int getResponsable() {
         return responsable;
     }
 
-    public void setId_responsable(int responsable) {
+    public void setResponsable(int responsable) {
         this.responsable = responsable;
     }
 
@@ -113,13 +113,21 @@ public class Articulo {
         this.fecha_de_alta = fecha_de_alta;
     }
 
-    public String toStringConTodo() {
-        return "Articulo{" + "id_articulo=" + id_articulo + ", nombre=" + nombre + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + ubicacion + ", responsable=" + responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
+    public int getId_fecha_cambios() {
+        return id_fecha_cambios;
+    }
+
+    public void setId_fecha_cambios(int id_fecha_cambios) {
+        this.id_fecha_cambios = id_fecha_cambios;
     }
 
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public String toStringConTodo() {
+        return "id_articulo=" + id_articulo + ", nombre=" + nombre + ", id_categoria=" + id_categoria + ", imagenes=" + imagenes + ", descripcion=" + descripcion + ", ubicacion=" + ubicacion + ", responsable=" + responsable + ", fecha_de_alta=" + fecha_de_alta + ", id_fecha_cambios=" + id_fecha_cambios + '}';
     }
 
 }

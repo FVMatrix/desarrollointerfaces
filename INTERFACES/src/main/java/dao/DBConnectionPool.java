@@ -17,7 +17,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
 /**
  *
  * @author oscar
@@ -41,7 +40,7 @@ public class DBConnectionPool {
     }
 
     public Connection getConnection() throws Exception {
-        Class.forName(ConfiguracionYaml.getInstance().getDriverDB());
+        Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection;
         connection = hirakiDatasource.getConnection();
 
@@ -58,10 +57,10 @@ public class DBConnectionPool {
     private DataSource getDataSourceHikari() {
         HikariConfig config = new HikariConfig();
 
-        config.setJdbcUrl(ConfiguracionYaml.getInstance().getUrlDB());
-        config.setUsername(ConfiguracionYaml.getInstance().getUserDB());
-        config.setPassword(ConfiguracionYaml.getInstance().getPassDB());
-        config.setDriverClassName(ConfiguracionYaml.getInstance().getDriverDB());
+        config.setJdbcUrl("jdbc:mysql://dam2.mysql.iesquevedo.es:3335/fvmatrixbd?useSSL=false&allowPublicKeyRetrieval=true");
+        config.setUsername("root");
+        config.setPassword("root");
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setMaximumPoolSize(10);
 
         config.addDataSourceProperty("cachePrepStmts", "true");
@@ -73,11 +72,9 @@ public class DBConnectionPool {
         return datasource;
     }
 
-   
-
     public void cerrarConexion(Connection connection) {
         try {
-          
+
             if (connection != null) {
                 connection.setAutoCommit(true);
                 connection.close();

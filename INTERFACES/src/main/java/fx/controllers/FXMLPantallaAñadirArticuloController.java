@@ -7,6 +7,7 @@ package fx.controllers;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -78,6 +79,14 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
         fxComboBoxUbicacion.getItems().addAll(su.cargarTodasLasUbicaciones());
     }
 
+    public void limpiarCampos() {
+        fxNombre.clear();
+        fxTextAreaDescripcion.clear();
+        fxComboBoxCategoria.getSelectionModel().clearSelection();
+        fxComboBoxResponsable.getSelectionModel().clearSelection();
+        fxComboBoxUbicacion.getSelectionModel().clearSelection();
+    }
+
     @FXML
     public void añadirArticulo() {
         servicios.ServiciosArticulos sa = new ServiciosArticulos();
@@ -96,6 +105,7 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
             Articulo o = new Articulo(0, fxNombre.getText(), getNombreDeImagen(), fxTextAreaDescripcion.getText(), ((Ubicacion) fxComboBoxUbicacion.getSelectionModel().getSelectedItem()).getIdubicaciones(), Date.valueOf(LocalDate.now()), idEmpleado, cat.getId_categoria());
             int num = sa.añadirArticulo(o);
             if (num > 0) {
+                limpiarCampos();
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("Se ha añadido correctamente");
                 alert.showAndWait();
@@ -171,13 +181,14 @@ public class FXMLPantallaAñadirArticuloController implements Initializable {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        File file = new File(this.getClass().getResource("/images").getFile());
+//this.getClass().getResource("/images").getFile()
+        File file = new File("./images");
         fileChooser.setInitialDirectory(file);
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("Image file", "*.png", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
-            if (selectedFile.getAbsolutePath().contains(fileChooser.getInitialDirectory().toString())) {
+            if (selectedFile.getAbsolutePath().contains("images")) {
                 //Añadir el nombre de la imagen al Articulo
                 //Crear Lista de String e ir añadiendo nombre de las imagenes a la lista separados por ";"
                 if (getNombreDeImagen() == null) {

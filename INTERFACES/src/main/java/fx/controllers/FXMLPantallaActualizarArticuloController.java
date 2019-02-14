@@ -32,9 +32,9 @@ import servicios.ServiciosUbicacion;
  * @author mykha
  */
 public class FXMLPantallaActualizarArticuloController implements Initializable {
-    
+
     private FXMLPantallaPrincipalController inicio;
-    
+
     public void setInicio(FXMLPantallaPrincipalController inicio) {
         this.inicio = inicio;
     }
@@ -44,7 +44,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
     private String nombreDeImagen;
     @FXML
     private ComboBox fxComboBoxArticulo;
-    
+
     @FXML
     private TextField fxNombre;
     @FXML
@@ -56,14 +56,14 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
     @FXML
     private TextArea fxDescripcion;
     private Alert alertError;
-    
+
     public void cargarComboArticulos() {
         fxComboBoxArticulo.getItems().clear();
         ServiciosArticulos sa = new ServiciosArticulos();
         List<Articulo> art = sa.cargarTodosLosArticulos();
         fxComboBoxArticulo.getItems().addAll(art);
     }
-    
+
     public void cargarCampos() {
         Articulo a = (Articulo) fxComboBoxArticulo.getSelectionModel().getSelectedItem();
         fxNombre.setText(a.getNombre());
@@ -72,7 +72,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         fxComboBoxCategoria.getSelectionModel().select(devuelveCategoriaDelArticuloSeleccionado(a));
         fxComboBoxResponsable.getSelectionModel().select(devuelveEmpleadoDelArticuloSeleccionado(a));
     }
-    
+
     public Categoria devuelveCategoriaDelArticuloSeleccionado(Articulo a) {
         Categoria cats = null;
         boolean salir = false;
@@ -84,7 +84,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         }
         return cats;
     }
-    
+
     public Ubicacion devuelveUbicacionDelArticuloSeleccionado(Articulo a) {
         Ubicacion ub = null;
         boolean salir = false;
@@ -96,19 +96,19 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         }
         return ub;
     }
-    
+
     public Empleado devuelveEmpleadoDelArticuloSeleccionado(Articulo a) {
         Empleado em = null;
         boolean salir = false;
         for (int i = 0; i < empl.size() && !salir; i++) {
-            if (empl.get(i).getId_empleado() == a.getId_responsable()) {
+            if (empl.get(i).getId_empleado() == a.getResponsable()) {
                 em = empl.get(i);
                 salir = true;
             }
         }
         return em;
     }
-    
+
     public void cargarComboCategoria() {
         cat = new LinkedList<>();
         fxComboBoxCategoria.getItems().clear();
@@ -116,7 +116,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         cat.addAll(sc.cargarTodosLasCategorias());
         fxComboBoxCategoria.getItems().addAll(cat);
     }
-    
+
     public void cargarComboResponsable() {
         empl = new LinkedList<>();
         fxComboBoxResponsable.getItems().clear();
@@ -124,7 +124,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         empl.addAll(se.cargarTodosLosEmpleados());
         fxComboBoxResponsable.getItems().addAll(empl);
     }
-    
+
     public void cargarComboUbicacion() {
         ubicaciones = new LinkedList<>();
         fxComboBoxUbicacion.getItems().clear();
@@ -132,12 +132,16 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         ubicaciones.addAll(su.cargarTodasLasUbicaciones());
         fxComboBoxUbicacion.getItems().addAll(ubicaciones);
     }
-    
+
     public void limpiarCampos() {
+        fxComboBoxArticulo.getSelectionModel().clearSelection();
         fxNombre.clear();
         fxDescripcion.clear();
+        fxComboBoxCategoria.getSelectionModel().clearSelection();
+        fxComboBoxResponsable.getSelectionModel().clearSelection();
+        fxComboBoxUbicacion.getSelectionModel().clearSelection();
     }
-    
+
     @FXML
     public void actualizarArticulo() {
         ServiciosArticulos sa = new ServiciosArticulos();
@@ -148,7 +152,7 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
                 a.setDescripcion(fxDescripcion.getText());
                 a.setNombre(fxNombre.getText());
                 a.setId_categoria(((Categoria) fxComboBoxCategoria.getSelectionModel().getSelectedItem()).getId_categoria());
-                a.setId_responsable(((Empleado) fxComboBoxResponsable.getSelectionModel().getSelectedItem()).getId_empleado());
+                a.setResponsable(((Empleado) fxComboBoxResponsable.getSelectionModel().getSelectedItem()).getId_empleado());
                 a.setUbicacion(((Ubicacion) fxComboBoxUbicacion.getSelectionModel().getSelectedItem()).getIdubicaciones());
                 if (getNombreDeImagen() != null) {
                     if (a.getImagenes() == null) {
@@ -156,10 +160,11 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
                     } else {
                         String imagenesActualesDelArticulo = a.getImagenes();
                         a.setImagenes(imagenesActualesDelArticulo + ";" + getNombreDeImagen());
-                    }                    
+                    }
                 }
                 int num = sa.modificarArticulo(a);
                 if (num > 0) {
+                    limpiarCampos();
                     alertError.setAlertType(Alert.AlertType.INFORMATION);
                     alertError.setContentText("Actualizado con exito");
                     alertError.showAndWait();
@@ -171,13 +176,13 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
                 alertError.setContentText("Rellene todos los campos");
                 alertError.showAndWait();
             }
-            
+
         } else {
             alertError.setContentText("Debe seleccionar un articulo");
             alertError.showAndWait();
         }
     }
-    
+
     @FXML
     public void añadirImagenes() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -185,42 +190,44 @@ public class FXMLPantallaActualizarArticuloController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("Las imagenes tienen que estar solo en la carpeta que se le abrirá a continuación. Copie su imagen a esa carpeta o seleccione una que ya está");
         alert.showAndWait();
-        
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        File file = new File(this.getClass().getResource("/images").getFile());
+        //this.getClass().getResource("/images").getFile()
+        File file = new File("./images");
         fileChooser.setInitialDirectory(file);
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image file", "*.png", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
-            if (selectedFile.getAbsolutePath().contains(fileChooser.getInitialDirectory().toString())) {
+            //fileChooser.getInitialDirectory().toString())
+            if (selectedFile.getAbsolutePath().contains("images")) {
                 if (getNombreDeImagen() == null) {
                     setNombreDeImagen(selectedFile.getName());
                 } else {
                     setNombreDeImagen(getNombreDeImagen() + ";" + selectedFile.getName());
                 }
-                
+
             } else {
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setContentText("Las imagenes tienen que estar solo en la carpeta que se le abrirá a continuación. Copie su imagen a esa carpeta o seleccione una que ya está");
                 alert.showAndWait();
             }
-            
+
         }
     }
-    
+
     public String getNombreDeImagen() {
         return nombreDeImagen;
     }
-    
+
     public void setNombreDeImagen(String nombreDeImagen) {
         this.nombreDeImagen = nombreDeImagen;
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         alertError = new Alert(Alert.AlertType.ERROR);
     }
-    
+
 }

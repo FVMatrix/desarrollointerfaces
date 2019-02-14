@@ -5,6 +5,7 @@
  */
 package fx.controllers;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -81,7 +82,7 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         fxTableView.getColumns().addAll(nombre, categoria, responsable, ubicacion, descipcion);
         nombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         categoria.setCellValueFactory(new PropertyValueFactory("id_categoria"));
-        responsable.setCellValueFactory(new PropertyValueFactory("id_responsable"));
+        responsable.setCellValueFactory(new PropertyValueFactory("responsable"));
         ubicacion.setCellValueFactory(new PropertyValueFactory("ubicacion"));
         descipcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
         fxTableView.getItems().add(a);
@@ -106,7 +107,9 @@ public class FXMLPantallaVerArticulosController implements Initializable {
         } else {
             imagenesDeArticulo = a.getImagenes();
             imagenesSeparadas = imagenesDeArticulo.split(";");
-            Image image = new Image(this.getClass().getResource("/images/" + imagenesSeparadas[0]).toString());
+            File file = new File("./images/");
+            //this.getClass().getResource("/images/"
+            Image image = new Image("images/" + imagenesSeparadas[0]);
             setImagenActual(imagenesSeparadas[0]);
             fxImageView.setImage((image));
             habiliatarBotonesDeLasImagenes();

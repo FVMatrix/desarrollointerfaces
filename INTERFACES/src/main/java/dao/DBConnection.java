@@ -25,14 +25,13 @@ public class DBConnection {
     }
 
     public Connection getConnection() throws Exception {
-        Class.forName(ConfiguracionYaml.getInstance().getDriverDB());
-        Connection connection = null;
+        //Class.forName(ConfiguracionYaml.getInstance().getDriverDB());
+        Connection connection = DBConnectionPool.getInstance().getConnection();
 
-        connection = DriverManager.getConnection(
-                ConfiguracionYaml.getInstance().getUrlDB(),
-                ConfiguracionYaml.getInstance().getUserDB(),
-                ConfiguracionYaml.getInstance().getPassDB());
-
+//        connection = DriverManager.getConnection(
+//                ConfiguracionYaml.getInstance().getUrlDB(),
+//                ConfiguracionYaml.getInstance().getUserDB(),
+//                ConfiguracionYaml.getInstance().getPassDB());
         return connection;
     }
 

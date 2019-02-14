@@ -23,20 +23,20 @@ public class ConfiguracionYaml {
 
     }
 
-    public static ConfiguracionYaml getInstance() {
-
-        if (config == null) {
-            try {
-                Yaml yaml = new Yaml();
-                config = (ConfiguracionYaml) yaml.loadAs(
-                        new FileInputStream("config/configuracionUsuario.yml"),
-                        ConfiguracionYaml.class);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ConfiguracionYaml.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return config;
-    }
+//    public static ConfiguracionYaml getInstance() {
+//
+//        if (config == null) {
+//            try {
+//                Yaml yaml = new Yaml();
+//                config = (ConfiguracionYaml) yaml.loadAs(
+//                        new FileInputStream("config/configuracionUsuario.yml"),
+//                        ConfiguracionYaml.class);
+//            } catch (FileNotFoundException ex) {
+//                Logger.getLogger(ConfiguracionYaml.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return config;
+//    }
 
     private String user;
     private String pass;
